@@ -33,29 +33,18 @@ function email_exists($dbh, $mail){
         echo ($e->getMessage());
         die();
     }
+    
+    //？会員登録を関数でするとエラー出た。SQL文をそのまま打つと問題なかった。
+    // function insert_register($dbh, $name, $mail, $pass){  
+    //     $pass = password_hash($pass, PASSWORD_DEFAULT);
+    //     $sql = "INSERT INTO users(name, mail, pass) VALUE(:name, :mail, :pass)";
+    //     $stmt = $dbh->prepare($sql);
+    //     $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+    //     $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+    //     $stmt->bindValue(':pass', $pass, PDO::PARAM_STR);
+    //     $stmt->execute();
+    // }
 
-    function insert_register($dbh, $name, $mail, $pass){  
-        $sql = "INSERT INTO users(name, mail, pass) VALUE(:name, :mail, :pass)";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
-        $stmt->bindValue(':pass', $pass, PDO::PARAM_STR);
-          if(!$stmt->execute()){
-            return 'データの書き込みに失敗しました。';
-          }
-    }
-
-    function insert_user($dbh, $name, $mail, $pass){
-        $pass = password_hash($pass, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users(name, mail, pass) VALUE(:name, :mail, :pass)";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
-        $stmt->bindValue(':pass', $pass, PDO::PARAM_STR);
-        if(!$stmt->execute()){
-            return 'データの書き込みに失敗しました。';
-        }
-    }
 }
 
 ?>

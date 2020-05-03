@@ -23,7 +23,7 @@
             </form>
         </div>
         <div class="register">
-            <a href="http://localhost/php-kadai/task_list/register.php" class="register-link">新規登録はこちら</a>
+            <a href="http://localhost/task_list/register.php" class="register-link">新規登録はこちら</a>
         </div>
     </main>
 </body>
