@@ -14,6 +14,7 @@
         <h1 class="page-title">タスク共有アプリ</h1>
         <p class="form-title">新規登録</p>
         <div class="register-form">
+            <!-- ？Validationのエラー文を出すところでif文がないと変数が未定義とエラーがでる？ -->
             <form action="./register.php" method="POST">
                 <p><label for="name">Name</label></p>
                     <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>

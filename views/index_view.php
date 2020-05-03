@@ -16,8 +16,10 @@
         <div class="login-form">
             <form action="index.php" method="POST">
                 <p><label for="mail">mail</label></p>
+                <p style='color: red; font-size: 13px'><?php if(!empty($errs['mail'])){ echo $errs['mail']; } ?></p>
                 <p><input type="text" name="mail" class="mail"></p>
                 <p><label for="pass">password</label></p>
+                <p style='color: red; font-size: 13px'><?php if(!empty($errs['pass'])){ echo $errs['pass']; } ?></p>
                 <p><input type="password" name="pass" class="pass"></p>
                 <p class="btn"><input type="submit" class="login-btn" value="ログイン"></p>
             </form>

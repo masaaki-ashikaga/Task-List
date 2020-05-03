@@ -33,6 +33,21 @@ function email_exists($dbh, $mail){
         echo ($e->getMessage());
         die();
     }
+
+    function login_check($dbh, $mail, $pass){
+        $sql = 'SELECT * FROM users WHERE mail = :mail LIMIT 1';
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            if(password_verify($pass, $data['pass'])){
+                return $data;
+            } else{
+                return FALSE;
+            }
+        }
+    }
     
     //？会員登録を関数でするとエラー出た。SQL文をそのまま打つと問題なかった。
     // function insert_register($dbh, $name, $mail, $pass){  
