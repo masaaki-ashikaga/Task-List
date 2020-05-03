@@ -1,0 +1,22 @@
+*{
+  box-sizing : border-box;
+}
+html{
+  font-size : 62.5%;
+}
+body{
+  font-family : YakuHanJP,"nsjpr", "游ゴシック Medium", "游ゴシック体", "Yu Gothic Medium", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-size : 1.6em;
+  font-weight : 400;
+  line-height : 1.8;
+  color : #333;
+  text-size-adjust : 100%;
+}
+img{
+  max-width : 100%;
+  height : auto;
+  vertical-align : middle;
+}
+
+
+
