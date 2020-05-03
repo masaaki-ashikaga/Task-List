@@ -11,14 +11,5 @@ function get_trim_post($key){
     }
 }
 
-function check_words($word, $length){
-    if(mb_strlen($word) === 0){
-        return FALSE;
-    } elseif(mb_strlen($word) > $length){
-        return FALSE;
-    } else{
-        TRUE;
-    }
-}
 
 ?>
