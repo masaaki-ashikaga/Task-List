@@ -19,21 +19,24 @@ main{
 label{
     color: #8a8a8a;
 }
-.login-form, .register-form{
+.login-form, .register-form, .account-info, .project-make{
     display: flex;
     justify-content: center;
     width : 500px;
 }
 
-.name, .mail, .pass, .mail_check{
-    width: 300px;
+.name, .mail, .pass, .mail_check, .comment{
+    width: 400px;
     line-height: 3em;
-    border: solid #8a8a8a 1px;
+    border: solid #8a8a8a 2px;
     margin-bottom: 50px;
+}
+.explain{
+    border: #8a8a8a solid 2px;
 }
 .btn{
     text-align: center;
-    width : 300px;
+    width : 400px;
     height: 100px;
     margin-top: 50px;
     margin-bottom: 70px;
@@ -42,7 +45,7 @@ label{
     width: 150px;
     height: 50px;
     font-size: 17px;
-    border: solid #8a8a8a 1px;
+    border: solid #8a8a8a 2px;
     color: #8a8a8a;
 }
 .login-btn:hover, .register-btn:hover{
@@ -56,4 +59,28 @@ label{
 .register-link, .login-link{
     text-decoration: none;
     color: #8a8a8a;
+}
+.project-list{
+    display: flex;
+    border: solid #8a8a8a 2px;
+    width : 400px;
+    height: 100px;
+    margin: 0 auto 20px auto;
+}
+.project-name{
+    border-right: solid #8a8a8a 2px;
+    width: 250px;
+    text-align: center;
+    line-height: 100px;
+    color: #8a8a8a;
+}
+.project-link{
+    background: #d8d8d8;
+    width: 150px;
+    text-align: center;
+    line-height: 100px;
+    color: #8a8a8a;
+}
+.account{
+    margin-top: 70px;
 }
