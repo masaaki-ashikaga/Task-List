@@ -33,6 +33,7 @@ function email_exists($dbh, $mail){
         echo ($e->getMessage());
         die();
     }
+}
 
     function login_check($dbh, $mail, $pass){
         $sql = 'SELECT * FROM users WHERE mail = :mail LIMIT 1';
@@ -48,18 +49,38 @@ function email_exists($dbh, $mail){
             }
         }
     }
-    
-    //？会員登録を関数でするとエラー出た。SQL文をそのまま打つと問題なかった。
-    // function insert_register($dbh, $name, $mail, $pass){  
-    //     $pass = password_hash($pass, PASSWORD_DEFAULT);
-    //     $sql = "INSERT INTO users(name, mail, pass) VALUE(:name, :mail, :pass)";
-    //     $stmt = $dbh->prepare($sql);
-    //     $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-    //     $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
-    //     $stmt->bindValue(':pass', $pass, PDO::PARAM_STR);
-    //     $stmt->execute();
-    // }
 
-}
+    function insert_register($dbh, $name, $mail, $pass){  
+        $pass = password_hash($pass, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users(name, mail, pass) VALUE(:name, :mail, :pass)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+        $stmt->bindValue(':pass', $pass, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    function update_user_data($dbh, $id, $name, $mail, $comment){
+        try{
+            $sql = "UPDATE users SET name = :name, mail = :mail, comment = :comment WHERE id = :id";
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+            $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+            $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
+            $stmt->execute();
+            echo 'アカウント情報を変更しました。';
+        } catch(PDOException $e){
+            echo 'アカウント情報の変更に失敗しました。';
+            echo ($e->getMessage());
+            die();
+        }
+
+     
+        
+    }
+
+
+
 
 ?>

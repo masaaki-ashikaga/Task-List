@@ -3,6 +3,12 @@ require_once('config.php');
 require_once('./helpers/db_helper.php');
 require_once('./helpers/common_helper.php');
 
+if(function_exists('insert_register')){
+    var_dump('関数あります。');
+} else{
+    var_dump('関数未定義');
+}
+
 session_start();
 if(!empty($_SESSION['member'])){
     header('Location:' . SITE_URL .'dashboard.php');
@@ -25,15 +31,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if(mb_strlen($pass) === 0 | mb_strlen($pass) > 100){
         $errs['pass'] = 'パスワードは必須、100文字以内です。';
-    } elseif(!login_check($dbh, $mail, $pass)){
+    } elseif(! $data = login_check($dbh, $mail, $pass)){
         $errs['pass'] = 'メールアドレスかパスワードが正しくありません。';
     }
 
     if(empty($errs)){
         session_regenerate_id(true);
-        $_SESSION['member'] = $member;
+        $_SESSION['data'] = $data;
         header('Location:' . SITE_URL . 'dashboard.php');
-        exit();  }
+        exit();  
+    }
     
 }
 

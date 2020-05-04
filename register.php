@@ -42,16 +42,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errs['pass'] = 'パスワードは必須、100文字以内です。';
     }
 
-    //エラーがなければINSERT実行
-    //？なぜか関数にするとUncaught Error: Call to undefined function insert_register()とエラーがでた。
     if(empty($errs)){
-        $pass = password_hash($pass, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users(name, mail, pass) VALUE(:name, :mail, :pass)";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
-        $stmt->bindValue(':pass', $pass, PDO::PARAM_STR);
-        $stmt->execute();
+        insert_register($dbh, $name, $mail, $pass);
         header('Location: http://localhost/task_list/index.php');
         exit;
     }
