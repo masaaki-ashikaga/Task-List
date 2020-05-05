@@ -25,7 +25,7 @@
                     <p class="task-deadline">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
-                <label class="task-checkbox"><input type="checkbox" class="task-complete"><span class="checkbox"></label>
+                <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
             </div>
             <div class="delete-btn"><p class="task-delete">削除</p></div>
 
@@ -35,7 +35,7 @@
                     <p class="task-deadline">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
-                <label class="task-checkbox"><input type="checkbox" class="task-complete"><span class="checkbox"></label>
+                <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
             </div>
             <div class="delete-btn"><p class="task-delete">削除</p></div>
 
@@ -45,7 +45,7 @@
                     <p class="task-deadline">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
-                <label class="task-checkbox"><input type="checkbox" class="task-complete"><span class="checkbox"></label>
+                <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
             </div>
             <div class="delete-btn"><p class="task-delete">削除</p></div>
         </div>
