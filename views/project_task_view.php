@@ -50,38 +50,55 @@
             <div class="delete-btn"><p class="task-delete">削除</p></div>
         </div>
 
-        <div class="account">
-            <p class="form-title">アカウント情報</p>
+        <div class="task-add">
+            <p class="form-title">タスクを追加</p>
             <div class="account-info">
                 <form class="account-info-form" action="./dashboard.php" method="POST">
-                    <p><label for="name">名前</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
-                    <p><input type="text" name="name" class="name"></p>
-                    <p><label for="mail">メール</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['mail'])){ echo $errs['mail']; } ?></p>
-                    <p><input type="text" name="mail" class="mail"></p>
-                    <p><label for="comment">一言</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['comment'])){ echo $errs['comment']; } ?></p>
-                    <p><input type="text" name="comment" class="comment"></p>
-                    <p class="btn"><input type="submit" name="account" class="login-btn" value="変更する"></p>
+                    <div class="select-member">
+                        <p><label for="name">担当者①</label></p>
+                        <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
+                        <p class="member-select">
+                            <select>
+                                <option>selectメニュー</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="select-member">
+                        <p><label for="name">担当者②</label></p>
+                        <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
+                        <p class="member-select">
+                            <select>
+                                <option>selectメニュー</option>
+                            </select>
+                        </p>
+                    </div>
+
+                    <p><label for="task">タスク名</label></p>
+                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['task'])){ echo $errs['task']; } ?></p>
+                    <p><input type="text" name="task" class="task"></p>
+                    <p><label for="deadline">期限</label></p>
+                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['deadline'])){ echo $errs['deadline']; } ?></p>
+                    <p><input type="date" name="deadline" class="deadline"></p>
+                    <p class="btn"><input type="submit" name="account" class="login-btn" value="追加する"></p>
                 </form>
             </div>
         </div>
 
         <div class="new-project">
-            <p class="form-title">プロジェクトを作る</p>
+            <p class="form-title">このプロジェクトにメンバーを招待する</p>
             <div class="project-make">
                 <form class="project-make-form" action="./dashboard.php" method="POST">
-                    <p><label for="pj_name">プロジェクト名</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['pj_name'])){ echo $errs['pj_name']; } ?></p>
-                    <p><input type="text" name="pj_name" class="name"></p>
-                    <p><label for="explain">説明</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['pj_explain'])){ echo $errs['pj_explain']; } ?></p>
-                    <p><textarea name="pj_explain" class="explain" cols="42" rows="5"></textarea></p>
-                    <p class="btn"><input type="submit" name="project" class="login-btn" value="作成する"></p>
+                    <p class="form-title">以下のURLを共有してください。</p>
+                    <p class="pj-url">
+                        localhost:8080/project_task.php?
+                        token="XXXXXXXXXXXXXXXXXXX"
+                    </p>
                 </form>
             </div>
         </div>
+        <p class="page-link">
+            <a href="./dashboard.php" class="dashboard-link">ダッシュボードに戻る</a>
+        </p>
     </main>
 </body>
 </html>
