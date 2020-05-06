@@ -10,7 +10,7 @@ main{
     margin-top: 40px; 
     margin-bottom: 40px;
 }
-.form-title{
+.form-title, .account-comment, .possession-task{
     color: #8a8a8a;
     text-align: center;
     font-size: 15px;
@@ -56,7 +56,7 @@ label{
     justify-content: center;
     height: 150px;
 }
-.register-link, .login-link, .dashboard-link{
+.register-link, .login-link, .dashboard-link, .pj_task-link{
     text-decoration: none;
     color: #8a8a8a;
 }
@@ -103,9 +103,37 @@ label{
 .account{
     margin-top: 70px;
 }
-.error-info{
-    text-align: center;
-    padding: 20px;
+.error-info, .run-info{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.error-info:before, .error-info:after{
+    border-top: 2px solid #ff0000;
+    content: "";
+    width: 1em;
+}
+.run-info:before, .run-info:after{
+    border-top: 2px solid #8a8a8a;
+    content: "";
+    width: 1em;
+}
+.error-info:before{
+    margin-right: 2px;
+}
+.error-info:after{
+    margin-left: 2px;
+}
+.run-info:before{
+    margin-right: 2px;
+}
+.run-info:after{
+    margin-left: 2px;
+}
+.error-display{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 .task-label{
     display: flex;

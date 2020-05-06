@@ -35,20 +35,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
 
         if(!empty($errs)){
-            $errs['post'] = 'アカウント情報の変更に失敗しました。入力エラーがあります。';
+            $errs['post'] = 'アカウント情報の変更に失敗しました';
         }
 
         if(empty($errs)){
             update_user_data($dbh, $id, $name, $mail, $comment);
+            $errs['run'] = 'アカウント情報を変更しました';
         }
     }
 
 }
-
-
-
-
-
 
 include_once('./views/dashboard_view.php');
 

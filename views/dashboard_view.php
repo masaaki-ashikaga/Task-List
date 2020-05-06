@@ -11,8 +11,15 @@
 
 <body>
     <main>
-        <p class="error-info" style='color: red; font-size: 13px'><?php if(!empty($errs['post'])){ echo $errs['post']; } ?></p>
         <h1 class="page-title">ダッシュボード</h1>
+            <div class='error-display'>
+        <?php if(!empty($errs['post'])){
+            echo "<p class='error-info' style='color: red; font-size: 13px'>" . $errs['post'] . "</p>";
+        } ?>
+        <?php if(!empty($errs['run'])){
+            echo "<p class='run-info' style='color: #8a8a8a; font-size: 13px'>" . $errs['run'] . "</p>";
+        } ?>
+        </div>
         <p class="form-title">XXXさんが参加しているプロジェクト</p>
 
         <div class="my-project">
