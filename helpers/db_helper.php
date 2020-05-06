@@ -1,40 +1,43 @@
 <?php
 
-function get_db_connect(){
-    $dsn = 'mysql:dbname=task_list;host=localhost;charset=utf8';
-    $user='root';
-    $password='root';
-    try{
-        $dbh=new PDO($dsn, $user, $password);
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo 'データベースの接続に成功しました。';
-    }catch (PDOException $e){
-        echo 'データベースの接続に失敗しました。';
-        echo($e->getMessage());
-        die();
-    }
-    return $dbh;
-}
-
-function email_exists($dbh, $mail){
-    try{
-        $sql = "SELECT COUNT(id) FROM users where mail = :mail";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
-        $stmt->execute();
-        $count = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($count['COUNT(id)'] > 0){
-            return TRUE;
-        } else{
-            return FALSE;
+    //DB接続
+    function get_db_connect(){
+        $dsn = 'mysql:dbname=task_list;host=localhost;charset=utf8';
+        $user='root';
+        $password='root';
+        try{
+            $dbh=new PDO($dsn, $user, $password);
+            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo 'データベースの接続に成功しました。';
+        }catch (PDOException $e){
+            echo 'データベースの接続に失敗しました。';
+            echo($e->getMessage());
+            die();
         }
-    } catch(PDOException $e){
-        echo 'メールアドレスのチェックに失敗しました。';
-        echo ($e->getMessage());
-        die();
+        return $dbh;
     }
-}
 
+    //メール重複チェック
+    function email_exists($dbh, $mail){
+        try{
+            $sql = "SELECT COUNT(id) FROM users where mail = :mail";
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+            $stmt->execute();
+            $count = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($count['COUNT(id)'] > 0){
+                return TRUE;
+            } else{
+                return FALSE;
+            }
+        } catch(PDOException $e){
+            echo 'メールアドレスのチェックに失敗しました。';
+            echo ($e->getMessage());
+            die();
+        }
+    }
+
+    //ログイン情報チェック
     function login_check($dbh, $mail, $pass){
         $sql = 'SELECT * FROM users WHERE mail = :mail LIMIT 1';
         $stmt = $dbh->prepare($sql);
@@ -50,6 +53,7 @@ function email_exists($dbh, $mail){
         }
     }
 
+    //users tabel関連
     function insert_register($dbh, $name, $mail, $pass){  
         $pass = password_hash($pass, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users(name, mail, pass) VALUE(:name, :mail, :pass)";
@@ -76,6 +80,18 @@ function email_exists($dbh, $mail){
         }
     }
 
+    function select_users_data($dbh){
+        $sql = "SELECT id, name FROM users";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+            $data[] = $row;
+        }
+        return $data;
+
+    }
+
+    //projects table関連
     function insert_pj_data($dbh, $pj_name, $pj_explain){
             $sql = "INSERT INTO projects(pj_name, pj_explain) VALUE(:pj_name, :pj_explain)";
             $stmt = $dbh->prepare($sql);
@@ -85,7 +101,7 @@ function email_exists($dbh, $mail){
     }
 
     function select_project_data($dbh){
-            $sql = "SELECT pj_name, pj_explain FROM projects";
+            $sql = "SELECT id, pj_name, pj_explain FROM projects";
             $stmt = $dbh->prepare($sql);
             $stmt->execute();
             while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
@@ -93,6 +109,8 @@ function email_exists($dbh, $mail){
             }
             return $data;
     }
+
+    //tasks table関連
 
 
 

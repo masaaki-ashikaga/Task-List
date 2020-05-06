@@ -12,7 +12,7 @@
 <body>
     <main>
         <h1 class="page-title">プロジェクトタスク</h1>
-        <p class="form-title">XXX会社WEBシステム</p>
+        <p class="form-title"><?php echo $pj_name; ?></p>
 
         <div class="my-project">
             <div class="task-label">
@@ -58,8 +58,16 @@
                         <p><label for="name">担当者①</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
-                            <select>
-                                <option>selectメニュー</option>
+                            <select name="user_id">
+                                <?php if(!empty($data)):
+                                    foreach($data as $key):
+                                    foreach($key as $value):
+                                ?>
+                                        <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
+                                <?php endforeach;
+                                    endforeach;
+                                    endif;
+                                ?>
                             </select>
                         </p>
                     </div>
@@ -67,19 +75,27 @@
                         <p><label for="name">担当者②</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
-                            <select>
-                                <option>selectメニュー</option>
+                            <select class="user_id">
+                                <?php if(!empty($data)):
+                                    foreach($data as $key):
+                                    foreach($key as $value):
+                                ?>
+                                        <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
+                                <?php endforeach;
+                                    endforeach;
+                                    endif;
+                                ?>
                             </select>
                         </p>
                     </div>
 
-                    <p><label for="task">タスク名</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['task'])){ echo $errs['task']; } ?></p>
-                    <p><input type="text" name="task" class="task"></p>
-                    <p><label for="deadline">期限</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['deadline'])){ echo $errs['deadline']; } ?></p>
-                    <p><input type="date" name="deadline" class="deadline"></p>
-                    <p class="btn"><input type="submit" name="account" class="login-btn" value="追加する"></p>
+                    <p><label for="title">タスク名</label></p>
+                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['title'])){ echo $errs['title']; } ?></p>
+                    <p><input type="text" name="title" class="task"></p>
+                    <p><label for="limit">期限</label></p>
+                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['limit'])){ echo $errs['limit']; } ?></p>
+                    <p><input type="date" name="limit" class="limit"></p>
+                    <p class="btn"><input type="submit" name="task" class="login-btn" value="追加する"></p>
                 </form>
             </div>
         </div>
@@ -90,8 +106,7 @@
                 <form class="project-make-form" action="./dashboard.php" method="POST">
                     <p class="form-title">以下のURLを共有してください。</p>
                     <p class="pj-url">
-                        localhost:8080/project_task.php?
-                        token="XXXXXXXXXXXXXXXXXXX"
+                    <?php echo SITE_URL.'project_task.php?id='.$id.'&pj_name='.$pj_name.'&pj_explain='.$pj_explain ;?>
                     </p>
                 </form>
             </div>
