@@ -25,13 +25,13 @@ label{
     width : 500px;
 }
 
-.name, .mail, .pass, .mail_check, .comment, .task, .deadline{
+.name, .mail, .pass, .mail_check, .comment, .task, .deadline, .pj_name{
     width: 400px;
     line-height: 3em;
     border: solid #8a8a8a 2px;
     margin-bottom: 50px;
 }
-.explain{
+.pj_explain{
     border: #8a8a8a solid 2px;
 }
 .btn{

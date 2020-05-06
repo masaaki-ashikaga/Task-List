@@ -11,4 +11,11 @@ function get_trim_post($key){
     }
 }
 
+function get_trim($key){
+    if(isset($_GET[$key])){
+        $var = trim($_GET[$key]);
+        return $var;
+    }
+}
+
 ?>

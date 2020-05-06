@@ -69,17 +69,30 @@ function email_exists($dbh, $mail){
             $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
             $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
             $stmt->execute();
-            echo 'アカウント情報を変更しました。';
         } catch(PDOException $e){
             echo 'アカウント情報の変更に失敗しました。';
             echo ($e->getMessage());
             die();
         }
-
-     
-        
     }
 
+    function insert_pj_data($dbh, $pj_name, $pj_explain){
+            $sql = "INSERT INTO projects(pj_name, pj_explain) VALUE(:pj_name, :pj_explain)";
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindValue(':pj_name', $pj_name, PDO::PARAM_STR);
+            $stmt->bindValue(':pj_explain', $pj_explain, PDO::PARAM_STR);
+            $stmt->execute();
+    }
+
+    function select_project_data($dbh){
+            $sql = "SELECT pj_name, pj_explain FROM projects";
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute();
+            while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+                $data[] = $row;
+            }
+            return $data;
+    }
 
 
 

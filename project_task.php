@@ -5,6 +5,7 @@ require_once('./helpers/common_helper.php');
 
 //データベース接続
 
+var_dump($_GET);
 
 include_once('./views/project_task_view.php');
 

@@ -20,21 +20,29 @@
             echo "<p class='run-info' style='color: #8a8a8a; font-size: 13px'>" . $errs['run'] . "</p>";
         } ?>
         </div>
-        <p class="form-title">XXXさんが参加しているプロジェクト</p>
+        <p class="form-title"><?php echo $user_name . "さんが参加しているプロジェクト"; ?></p>
 
         <div class="my-project">
+            <?php if(!empty($data)):
+                foreach($data as $key):
+                    foreach($key as $value):
+             ?>
+                
             <div class="project-list">
+                <p class="project-name"><?php echo $value['pj_name'] ?></p>
+                <p class="project-link"><a href="<?php echo SITE_URL.'project_task.php?id='.$value['id'].'&pj_name='.$value['pj_name'].'&pj_explain='.$value['pj_explain'] ;?>" class="project-link">タスクへ</a></p>
+            </div>
+                <?php endforeach;
+                      endforeach;
+                      endif; ?>
+            <!-- <div class="project-list">
                 <p class="project-name">XXX会社WEBシステム</p>
                 <p class="project-link"><a href="" class="project-link">タスクへ</a></p>
             </div>
             <div class="project-list">
                 <p class="project-name">XXX会社WEBシステム</p>
                 <p class="project-link"><a href="" class="project-link">タスクへ</a></p>
-            </div>
-            <div class="project-list">
-                <p class="project-name">XXX会社WEBシステム</p>
-                <p class="project-link"><a href="" class="project-link">タスクへ</a></p>
-            </div>
+            </div> -->
         </div>
 
         <div class="account">
@@ -57,14 +65,23 @@
 
         <div class="new-project">
             <p class="form-title">プロジェクトを作る</p>
-            <div class="project-make">
+            <div class="project-make"> 
+                <!-- <form class="project-make-form" action="" method="GET"> -->
+                    <!-- <p><label for="pj_name">プロジェクト名</label></p>
+                    <p style='color: red; font-size: 13px'><?php //if(!empty($errs['pj_name'])){ echo $errs['pj_name']; } ?></p>
+                    <p><input type="text" name="pj_name" class="pj_name"></p>
+                    <p><label for="pj_explain">説明</label></p>
+                    <p style='color: red; font-size: 13px'><?php //if(!empty($errs['pj_explain'])){ echo $errs['pj_explain']; } ?></p>
+                    <p><textarea name="pj_explain" class="pj_explain" cols="42" rows="5"></textarea></p>
+                    <p class="btn"><input type="submit" name="project" class="login-btn" value="作成する"></p>
+                </form> -->
                 <form class="project-make-form" action="./dashboard.php" method="POST">
                     <p><label for="pj_name">プロジェクト名</label></p>
                     <p style='color: red; font-size: 13px'><?php if(!empty($errs['pj_name'])){ echo $errs['pj_name']; } ?></p>
-                    <p><input type="text" name="pj_name" class="name"></p>
-                    <p><label for="explain">説明</label></p>
+                    <p><input type="text" name="pj_name" class="pj_name"></p>
+                    <p><label for="pj_explain">説明</label></p>
                     <p style='color: red; font-size: 13px'><?php if(!empty($errs['pj_explain'])){ echo $errs['pj_explain']; } ?></p>
-                    <p><textarea name="pj_explain" class="explain" cols="42" rows="5"></textarea></p>
+                    <p><textarea name="pj_explain" class="pj_explain" cols="42" rows="5"></textarea></p>
                     <p class="btn"><input type="submit" name="project" class="login-btn" value="作成する"></p>
                 </form>
             </div>
