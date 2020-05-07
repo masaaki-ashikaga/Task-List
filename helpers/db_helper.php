@@ -111,6 +111,16 @@
     }
 
     //tasks table関連
+    function insert_task_data($dbh, $title, $limit, $user_id, $project_id, $timestamp){
+            $timestamp = date('Y-m-d H:i:s');
+            $sql = "INSERT INTO tasks(title, limit, user_id, project_id, timestamp) VALUE(:title, :limit, :user_id, :project_id, '{$timestamp}')";
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindValue(':title', $title, PDO::PARAM_STR); 
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_STR); 
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR); 
+            $stmt->bindValue(':project_id', $project_id, PDO::PARAM_STR); 
+            $stmt->execute();
+    }
 
 
 
