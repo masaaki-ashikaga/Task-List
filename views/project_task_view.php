@@ -22,7 +22,7 @@
             <div class="task-list">
                 <div class="task-info">
                     <p class="task-name">デザインコーディング</p>
-                    <p class="task-deadline">期限：2019/3/31</p>
+                    <p class="task-limit">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
                 <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
@@ -32,7 +32,7 @@
             <div class="task-list">
                 <div class="task-info">
                     <p class="task-name">デザインコーディング</p>
-                    <p class="task-deadline">期限：2019/3/31</p>
+                    <p class="task-limit">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
                 <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
@@ -42,7 +42,7 @@
             <div class="task-list">
                 <div class="task-info">
                     <p class="task-name">デザインコーディング</p>
-                    <p class="task-deadline">期限：2019/3/31</p>
+                    <p class="task-limit">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
                 <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
@@ -53,20 +53,20 @@
         <div class="task-add">
             <p class="form-title">タスクを追加</p>
             <div class="account-info">
-                <form class="account-info-form" action="./dashboard.php" method="POST">
+                <form class="account-info-form" action="" method="POST">
                     <div class="select-member">
                         <p><label for="name">担当者①</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
-                            <select name="user_id">
+                            <select name="user_id[]">
                                 <?php if(!empty($data)):
-                                    foreach($data as $key):
-                                    foreach($key as $value):
+                                      foreach($data as $key):
+                                      foreach($key as $value):
                                 ?>
                                         <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
                                 <?php endforeach;
-                                    endforeach;
-                                    endif;
+                                      endforeach;
+                                      endif;
                                 ?>
                             </select>
                         </p>
@@ -75,15 +75,15 @@
                         <p><label for="name">担当者②</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
-                            <select class="user_id">
+                            <select name="user_id[]">
                                 <?php if(!empty($data)):
-                                    foreach($data as $key):
-                                    foreach($key as $value):
+                                      foreach($data as $key):
+                                      foreach($key as $value):
                                 ?>
                                         <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
                                 <?php endforeach;
-                                    endforeach;
-                                    endif;
+                                      endforeach;
+                                      endif;
                                 ?>
                             </select>
                         </p>
