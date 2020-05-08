@@ -12,7 +12,7 @@
 <body>
     <main>
         <h1 class="page-title">プロジェクトタスク</h1>
-        <p class="form-title"><?php echo $pj_name; ?></p>
+        <p class="form-title"><?php echo $get_pj_name; ?></p>
 
         <div class="my-project">
             <div class="task-label">
@@ -106,7 +106,7 @@
                 <form class="project-make-form" action="./dashboard.php" method="POST">
                     <p class="form-title">以下のURLを共有してください。</p>
                     <p class="pj-url">
-                    <?php echo SITE_URL.'project_task.php?id='.$id.'&pj_name='.$pj_name.'&pj_explain='.$pj_explain ;?>
+                    <?php echo SITE_URL.'project_task.php?id='.$get_id.'&pj_name='.$get_pj_name.'&pj_explain='.$get_pj_explain ;?>
                     </p>
                 </form>
             </div>

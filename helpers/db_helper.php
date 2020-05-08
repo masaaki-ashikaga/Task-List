@@ -111,14 +111,21 @@
     }
 
     //tasks table関連
-
-    function insert_task_data($dbh, $title, $limit, $user_id){
-            $sql = "INSERT INTO tasks(title, limit, user_id) VALUE(:title, :limit, :user_id)";
+    function insert_task_data($dbh, $title, $limit ,$user_id, $project_id){
+        try{
+            $sql = "INSERT INTO tasks(title, limit, user_id, project_id) VALUE(:title, :limit, :user_id, :project_id)";
             $stmt = $dbh->prepare($sql);
-            $stmt->bindValue(':title', $title, PDO::PARAM_STR);  //入力値を取得
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_STR);  //入力値を取得
-            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);  //SelectからのPOSTで取得
+            $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_STR);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':project_id', $project_id, PDO::PARAM_INT);
             $stmt->execute();
+            var_dump('エラー出てない');
+            exit;
+            } catch(PDOException $e){
+                echo ($e->getMessage());
+                die();
+            }
     }
     
 
