@@ -12,6 +12,14 @@
 <body>
     <main>
         <h1 class="page-title">プロジェクトタスク</h1>
+        <div class='error-display'>
+            <?php if(!empty($errs['post'])){
+                echo "<p class='error-info' style='color: red; font-size: 13px'>" . $errs['post'] . "</p>";
+            } ?>
+            <?php if(!empty($errs['run'])){
+                echo "<p class='run-info' style='color: #8a8a8a; font-size: 13px'>" . $errs['run'] . "</p>";
+            } ?>
+        </div>
         <p class="form-title"><?php echo $get_pj_name; ?></p>
 
         <div class="my-project">
@@ -22,7 +30,7 @@
             <div class="task-list">
                 <div class="task-info">
                     <p class="task-name">デザインコーディング</p>
-                    <p class="task-limit">期限：2019/3/31</p>
+                    <p class="task-deadline">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
                 <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
@@ -32,7 +40,7 @@
             <div class="task-list">
                 <div class="task-info">
                     <p class="task-name">デザインコーディング</p>
-                    <p class="task-limit">期限：2019/3/31</p>
+                    <p class="task-deadline">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
                 <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
@@ -42,7 +50,7 @@
             <div class="task-list">
                 <div class="task-info">
                     <p class="task-name">デザインコーディング</p>
-                    <p class="task-limit">期限：2019/3/31</p>
+                    <p class="task-deadline">期限：2019/3/31</p>
                 </div>
                 <p class="task-member">糸島｜高橋</p>
                 <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
@@ -53,7 +61,7 @@
         <div class="task-add">
             <p class="form-title">タスクを追加</p>
             <div class="account-info">
-                <form class="account-info-form" action="" method="POST">
+                <form class="account-info-form" action="<?php echo 'project_task.php?pj_id=' . $_GET['id'] . '&pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain'] ?>" method="POST">
                     <div class="select-member">
                         <p><label for="name">担当者①</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
@@ -92,9 +100,9 @@
                     <p><label for="title">タスク名</label></p>
                     <p style='color: red; font-size: 13px'><?php if(!empty($errs['title'])){ echo $errs['title']; } ?></p>
                     <p><input type="text" name="title" class="task"></p>
-                    <p><label for="limit">期限</label></p>
-                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['limit'])){ echo $errs['limit']; } ?></p>
-                    <p><input type="date" name="limit" class="limit"></p>
+                    <p><label for="deadline">期限</label></p>
+                    <p style='color: red; font-size: 13px'><?php if(!empty($errs['deadline'])){ echo $errs['deadline']; } ?></p>
+                    <p><input type="date" name="deadline" class="deadline"></p>
                     <p class="btn"><input type="submit" name="task" class="login-btn" value="追加する"></p>
                 </form>
             </div>

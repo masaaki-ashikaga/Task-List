@@ -111,13 +111,13 @@
     }
  
     //tasks table関連
-    function insert_task_data($dbh, $title, $limit, $user_id, $project_id){
+    function insert_task_data($dbh, $title, $deadline, $user_id, $project_id){
         try{
             $date = date('Y-m-d');
-            $sql = "INSERT INTO tasks(title, user_id, project_id, limit, timestamp) VALUE(:title, :user_id, :project_id, :limit, '{$date}')";
+            $sql = "INSERT INTO tasks(title, user_id, project_id, deadline, timestamp) VALUE(:title, :user_id, :project_id, :deadline, '{$date}')";
             $stmt = $dbh->prepare($sql);
             $stmt->bindValue(':title', $title, PDO::PARAM_STR);
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_STR);
+            $stmt->bindValue(':deadline', $deadline, PDO::PARAM_STR);
             $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindValue(':project_id', $project_id, PDO::PARAM_INT);
             $stmt->execute();

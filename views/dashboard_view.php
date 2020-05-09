@@ -12,13 +12,13 @@
 <body>
     <main>
         <h1 class="page-title">ダッシュボード</h1>
-            <div class='error-display'>
-        <?php if(!empty($errs['post'])){
-            echo "<p class='error-info' style='color: red; font-size: 13px'>" . $errs['post'] . "</p>";
-        } ?>
-        <?php if(!empty($errs['run'])){
-            echo "<p class='run-info' style='color: #8a8a8a; font-size: 13px'>" . $errs['run'] . "</p>";
-        } ?>
+        <div class='error-display'>
+            <?php if(!empty($errs['post'])){
+                echo "<p class='error-info' style='color: red; font-size: 13px'>" . $errs['post'] . "</p>";
+            } ?>
+            <?php if(!empty($errs['run'])){
+                echo "<p class='run-info' style='color: #8a8a8a; font-size: 13px'>" . $errs['run'] . "</p>";
+            } ?>
         </div>
         <p class="form-title"><?php echo $user_name . "さんが参加しているプロジェクト"; ?></p>
 
