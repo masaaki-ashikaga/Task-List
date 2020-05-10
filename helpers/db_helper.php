@@ -128,7 +128,7 @@
     }
 
     function select_task_data($dbh){
-        $sql = "SELECT * FROM tasks INNER JOIN users ON tasks.user_id = users.id";
+        $sql = "SELECT title, deadline, user_id, project_id, name FROM tasks, users WHERE tasks.user_id = users.id";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
         while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){

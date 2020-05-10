@@ -69,7 +69,7 @@
                             <select name="user_id[]">
                                 <?php if(!empty($data)):
                                       foreach($data as $key):
-                                      foreach($key as $value):
+                                        foreach($key as $value):
                                 ?>
                                         <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
                                 <?php endforeach;
