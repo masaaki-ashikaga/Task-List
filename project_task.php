@@ -5,6 +5,11 @@ require_once('./helpers/common_helper.php');
 
 $dbh = get_db_connect();
 $data = select_users_data($dbh);
+$tasks = select_task_data($dbh);
+
+echo '<pre>';
+var_dump($tasks);
+echo '</pre>';
 
 $get_id = $_GET['id'];
 $get_pj_name = $_GET['pj_name'];

@@ -126,6 +126,16 @@
                 die();
             }
     }
+
+    function select_task_data($dbh){
+        $sql = "SELECT * FROM tasks INNER JOIN users ON tasks.user_id = users.id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+            $tasks[] = $row;
+        }
+        return $tasks;
+    }
     
 
 
