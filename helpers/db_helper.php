@@ -111,14 +111,16 @@
     }
  
     //tasks table関連
-    function insert_task_data($dbh, $title, $deadline, $user_id, $project_id){
+    function insert_task_data($dbh, $title, $deadline, $main_user_id, $sub_user_id,$project_id){
         try{
             $date = date('Y-m-d');
-            $sql = "INSERT INTO tasks(title, user_id, project_id, deadline, timestamp) VALUE(:title, :user_id, :project_id, :deadline, '{$date}')";
+            $project_id = $_GET['pj_id'];
+            $sql = "INSERT INTO tasks(title, main_user_id, sub_user_id, project_id, deadline, timestamp) VALUE(:title, :main_user_id, :sub_user_id, :project_id, :deadline, '{$date}')";
             $stmt = $dbh->prepare($sql);
             $stmt->bindValue(':title', $title, PDO::PARAM_STR);
             $stmt->bindValue(':deadline', $deadline, PDO::PARAM_STR);
-            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':main_user_id', $main_user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':sub_user_id', $sub_user_id, PDO::PARAM_INT);
             $stmt->bindValue(':project_id', $project_id, PDO::PARAM_INT);
             $stmt->execute();
             } catch(PDOException $e){
@@ -128,10 +130,17 @@
     }
 
     function select_task_data($dbh){
-        $sql = "SELECT title, deadline, user_id, project_id, name FROM tasks, users WHERE tasks.user_id = users.id";
+        $sql = "SELECT tasks.title,
+                       tasks.deadline,
+                       tasks.main_user_id,
+                       tasks.sub_user_id,
+                       users.name
+                FROM   tasks
+                    LEFT JOIN tasks AS ";
+
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
-        while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             $tasks[] = $row;
         }
         return $tasks;

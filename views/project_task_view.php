@@ -27,15 +27,16 @@
                 <p class="label">タスク名</p>
                 <p class="label">完了チェック</p>
             </div>
-            <div class="task-list">
-                <div class="task-info">
-                    <p class="task-name">デザインコーディング</p>
-                    <p class="task-deadline">期限：2019/3/31</p>
+                <div class="task-list">
+                    <div class="task-info">
+                        <p class="task-name"><?php echo $task['title'] ?></p>
+                        <p class="task-deadline">期限：<?php echo $task['deadline']; ?></p>
+                    </div>
+                    <p class="task-member">糸島｜高橋</p>
+                    <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
                 </div>
-                <p class="task-member">糸島｜高橋</p>
-                <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
-            </div>
-            <div class="delete-btn"><p class="task-delete">削除</p></div>
+                <div class="delete-btn"><p class="task-delete">削除</p></div>
+
 
             <div class="task-list">
                 <div class="task-info">
@@ -64,14 +65,14 @@
                 <form class="account-info-form" action="<?php echo 'project_task.php?pj_id=' . $_GET['id'] . '&pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain'] ?>" method="POST">
                     <div class="select-member">
                         <p><label for="name">担当者①</label></p>
-                        <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
+                        <p style='color: red; font-size: 13px'><?php if(!empty($errs['main_user'])){ echo $errs['main_user']; } ?></p>
                         <p class="member-select">
-                            <select name="user_id[]">
+                            <select name="main_user">
                                 <?php if(!empty($data)):
                                       foreach($data as $key):
-                                        foreach($key as $value):
+                                      foreach($key as $value):
                                 ?>
-                                        <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
+                                        <option value="<?php echo $value['name']; ?>"><?php echo $value['name'] ?></option>
                                 <?php endforeach;
                                       endforeach;
                                       endif;
@@ -83,12 +84,12 @@
                         <p><label for="name">担当者②</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
-                            <select name="user_id[]">
+                            <select name="sub_user_id">
                                 <?php if(!empty($data)):
                                       foreach($data as $key):
                                       foreach($key as $value):
                                 ?>
-                                        <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
+                                        <option value="<?php echo $value['name']; ?>"><?php echo $value['name'] ?></option>
                                 <?php endforeach;
                                       endforeach;
                                       endif;
