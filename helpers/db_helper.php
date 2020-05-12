@@ -109,16 +109,16 @@
     }
  
     //tasks table関連
-    function insert_task_data($dbh, $title, $deadline, $main_user_name, $sub_user_name, $project_id){
+    function insert_task_data($dbh, $title, $deadline, $main_user_id, $sub_user_id, $project_id){
         try{
             $date = date('Y-m-d');
             $project_id = $_GET['pj_id'];
-            $sql = "INSERT INTO tasks(title, main_user_name, sub_user_name, project_id, deadline, timestamp) VALUE(:title, :main_user_name, :sub_user_name, :project_id, :deadline, '{$date}')";
+            $sql = "INSERT INTO tasks(title, main_user_id, sub_user_id, project_id, deadline, timestamp) VALUE(:title, :main_user_id, :sub_user_id, :project_id, :deadline, '{$date}')";
             $stmt = $dbh->prepare($sql);
             $stmt->bindValue(':title', $title, PDO::PARAM_STR);
             $stmt->bindValue(':deadline', $deadline, PDO::PARAM_STR);
-            $stmt->bindValue(':main_user_name', $main_user_name, PDO::PARAM_STR);
-            $stmt->bindValue(':sub_user_name', $sub_user_name, PDO::PARAM_STR);
+            $stmt->bindValue(':main_user_id', $main_user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':sub_user_id', $sub_user_id, PDO::PARAM_INT);
             $stmt->bindValue(':project_id', $project_id, PDO::PARAM_INT);
             $stmt->execute();
             } catch(PDOException $e){
@@ -128,18 +128,50 @@
     }
 
 
-
+    //titleとdeadlineとPJ_idはtasks tableから取得する。
     function select_task_data($dbh){
-        $sql = "SELECT tasks.id, tasks.title, tasks.deadline, tasks.main_user_name, tasks.sub_user_name, main.id, sub.id FROM tasks
-                LEFT JOIN users AS main ON tasks.main_user_name = main.id
-                LEFT JOIN users AS sub ON tasks.sub_user_name = sub.id";
+        $sql = "SELECT id, title, deadline, done_flag FROM tasks";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
-        while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
-            $tasks[] = $row;
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data[] = $row;
         }
-        return $tasks;
+        return $data;
     }
+
+    //main_user_idとsub_user_idを別々に取得する（tasks tableのuser_id = users tableのuser_idで取得）。
+    function select_task_main_id($dbh){
+        $sql = "SELECT * FROM users RIGHT JOIN tasks ON users.id = tasks.main_user_id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data = $row;
+        }
+        return $data;
+    }
+
+    function select_task_sub_id($dbh){
+        $sql = "SELECT * FROM users RIGHT JOIN tasks ON users.id = tasks.sub_user_id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data = $row;
+        }
+        return $data;
+    }
+
+
+    // function select_task_data($dbh){
+    //     $sql = "SELECT tasks.id, tasks.title, tasks.deadline, tasks.main_user_name, tasks.sub_user_name, main.id, sub.id FROM tasks
+    //             LEFT JOIN users AS main ON tasks.main_user_name = main.id
+    //             LEFT JOIN users AS sub ON tasks.sub_user_name = sub.id";
+    //     $stmt = $dbh->prepare($sql);
+    //     $stmt->execute();
+    //     while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+    //         $tasks[] = $row;
+    //     }
+    //     return $tasks;
+    // }
 
     function delete_task_data($dbh, $id){
         $sql = "DELETE FROM tasks WHERE id = :id";

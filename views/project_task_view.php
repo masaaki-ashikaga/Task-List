@@ -30,14 +30,18 @@
 
             <?php if(isset($tasks)):
                   foreach($tasks as $key => $value):
-                  foreach($value as $task): ?>
+                  foreach($value as $task):
+                  foreach($main_user as $main_user_name => $main_name):
+                  foreach($sub_user as $sub_user_name => $sub_name):
+                  if($task['id'] === $main_name['id'] & $task['id'] === $sub_name['id']):
+                   ?>
 
                 <div class="task-list">
                     <div class="task-info">
                         <p class="task-name"><?php echo $task['title'] ?></p>
                         <p class="task-deadline">期限：<?php echo $task['deadline']; ?></p>
                     </div>
-                    <p class="task-member"><?php echo $task['main_user_name'].'｜'.$task['sub_user_name']; ?></p>
+                    <p class="task-member"><?php echo $main_name['name'].'|'.$sub_name['name']; ?></p>
                     <label class="task-checkbox">
                         <input type="checkbox" name="done_flag" class="task-complete" value="1">
                         <input type="hidden" name="done_flag" class="task-complete" value="0">
@@ -49,7 +53,10 @@
                     <p><input type="hidden" name="id" value="<?php echo $task['id'] ?>"></p>
                     <div class="delete-btn"><p class="task-delete"><input type="submit" class="task-delete" name="delete" value="削除"></p></div>
                 </form>
-            <?php endforeach;
+            <?php endif;
+                  endforeach;
+                  endforeach;
+                  endforeach;
                   endforeach;
                   endif; ?>
         </div>
@@ -64,7 +71,7 @@
                         <p><label for="name">担当者①</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['main_user'])){ echo $errs['main_user']; } ?></p>
                         <p class="member-select">
-                            <select name="main_user_name">
+                            <select name="main_user_id">
                                 <?php if(!empty($data)):
                                       foreach($data as $key):
                                       foreach($key as $value):
@@ -81,7 +88,7 @@
                         <p><label for="name">担当者②</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
-                            <select name="sub_user_name">
+                            <select name="sub_user_id">
                                 <?php if(!empty($data)):
                                       foreach($data as $key):
                                       foreach($key as $value):
