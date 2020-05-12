@@ -8,7 +8,6 @@
         try{
             $dbh=new PDO($dsn, $user, $password);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo 'データベースの接続に成功しました。';
         }catch (PDOException $e){
             echo 'データベースの接続に失敗しました。';
             echo($e->getMessage());
@@ -88,7 +87,6 @@
             $data[] = $row;
         }
         return $data;
-
     }
 
     //projects table関連
@@ -111,16 +109,16 @@
     }
  
     //tasks table関連
-    function insert_task_data($dbh, $title, $deadline, $main_user_id, $sub_user_id,$project_id){
+    function insert_task_data($dbh, $title, $deadline, $main_user_name, $sub_user_name, $project_id){
         try{
             $date = date('Y-m-d');
             $project_id = $_GET['pj_id'];
-            $sql = "INSERT INTO tasks(title, main_user_id, sub_user_id, project_id, deadline, timestamp) VALUE(:title, :main_user_id, :sub_user_id, :project_id, :deadline, '{$date}')";
+            $sql = "INSERT INTO tasks(title, main_user_name, sub_user_name, project_id, deadline, timestamp) VALUE(:title, :main_user_name, :sub_user_name, :project_id, :deadline, '{$date}')";
             $stmt = $dbh->prepare($sql);
             $stmt->bindValue(':title', $title, PDO::PARAM_STR);
             $stmt->bindValue(':deadline', $deadline, PDO::PARAM_STR);
-            $stmt->bindValue(':main_user_id', $main_user_id, PDO::PARAM_INT);
-            $stmt->bindValue(':sub_user_id', $sub_user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':main_user_name', $main_user_name, PDO::PARAM_STR);
+            $stmt->bindValue(':sub_user_name', $sub_user_name, PDO::PARAM_STR);
             $stmt->bindValue(':project_id', $project_id, PDO::PARAM_INT);
             $stmt->execute();
             } catch(PDOException $e){
@@ -129,21 +127,25 @@
             }
     }
 
-    function select_task_data($dbh){
-        $sql = "SELECT tasks.title,
-                       tasks.deadline,
-                       tasks.main_user_id,
-                       tasks.sub_user_id,
-                       users.name
-                FROM   tasks
-                    LEFT JOIN tasks AS ";
 
+
+    function select_task_data($dbh){
+        $sql = "SELECT tasks.id, tasks.title, tasks.deadline, tasks.main_user_name, tasks.sub_user_name, main.id, sub.id FROM tasks
+                LEFT JOIN users AS main ON tasks.main_user_name = main.id
+                LEFT JOIN users AS sub ON tasks.sub_user_name = sub.id";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
             $tasks[] = $row;
         }
         return $tasks;
+    }
+
+    function delete_task_data($dbh, $id){
+        $sql = "DELETE FROM tasks WHERE id = :id";
+        $stmt = $dbh->prepare($sql);
+        $params = array(':id' => $id);
+        $stmt->execute($params);
     }
     
 

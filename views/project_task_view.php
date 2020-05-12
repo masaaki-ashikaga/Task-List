@@ -27,37 +27,34 @@
                 <p class="label">タスク名</p>
                 <p class="label">完了チェック</p>
             </div>
+
+            <?php if(isset($tasks)):
+                  foreach($tasks as $key => $value):
+                  foreach($value as $task): ?>
+
                 <div class="task-list">
                     <div class="task-info">
                         <p class="task-name"><?php echo $task['title'] ?></p>
                         <p class="task-deadline">期限：<?php echo $task['deadline']; ?></p>
                     </div>
-                    <p class="task-member">糸島｜高橋</p>
-                    <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
+                    <p class="task-member"><?php echo $task['main_user_name'].'｜'.$task['sub_user_name']; ?></p>
+                    <label class="task-checkbox">
+                        <input type="checkbox" name="done_flag" class="task-complete" value="1">
+                        <input type="hidden" name="done_flag" class="task-complete" value="0">
+                        <span class="checkbox">
+                    </label>
                 </div>
-                <div class="delete-btn"><p class="task-delete">削除</p></div>
-
-
-            <div class="task-list">
-                <div class="task-info">
-                    <p class="task-name">デザインコーディング</p>
-                    <p class="task-deadline">期限：2019/3/31</p>
-                </div>
-                <p class="task-member">糸島｜高橋</p>
-                <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
-            </div>
-            <div class="delete-btn"><p class="task-delete">削除</p></div>
-
-            <div class="task-list">
-                <div class="task-info">
-                    <p class="task-name">デザインコーディング</p>
-                    <p class="task-deadline">期限：2019/3/31</p>
-                </div>
-                <p class="task-member">糸島｜高橋</p>
-                <label class="task-checkbox"><input type="checkbox" name="checkbox" class="task-complete"><span class="checkbox"></label>
-            </div>
-            <div class="delete-btn"><p class="task-delete">削除</p></div>
+                <form action="./project_task.php" method="POST">
+                    <p><input type="hidden" name="eventid" value="delete"></p>
+                    <p><input type="hidden" name="id" value="<?php echo $task['id'] ?>"></p>
+                    <div class="delete-btn"><p class="task-delete"><input type="submit" class="task-delete" name="delete" value="削除"></p></div>
+                </form>
+            <?php endforeach;
+                  endforeach;
+                  endif; ?>
         </div>
+
+
 
         <div class="task-add">
             <p class="form-title">タスクを追加</p>
@@ -67,7 +64,7 @@
                         <p><label for="name">担当者①</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['main_user'])){ echo $errs['main_user']; } ?></p>
                         <p class="member-select">
-                            <select name="main_user">
+                            <select name="main_user_name">
                                 <?php if(!empty($data)):
                                       foreach($data as $key):
                                       foreach($key as $value):
@@ -84,7 +81,7 @@
                         <p><label for="name">担当者②</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
-                            <select name="sub_user_id">
+                            <select name="sub_user_name">
                                 <?php if(!empty($data)):
                                       foreach($data as $key):
                                       foreach($key as $value):
@@ -104,6 +101,7 @@
                     <p><label for="deadline">期限</label></p>
                     <p style='color: red; font-size: 13px'><?php if(!empty($errs['deadline'])){ echo $errs['deadline']; } ?></p>
                     <p><input type="date" name="deadline" class="deadline"></p>
+                    <input type="hidden" name="project_id" value="<?php echo $_GET['id']; ?>">
                     <p class="btn"><input type="submit" name="task" class="login-btn" value="追加する"></p>
                 </form>
             </div>
