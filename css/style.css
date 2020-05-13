@@ -247,4 +247,8 @@ input[type = checkbox]{
 input[type=checkbox]:checked + .checkbox::after {
     opacity: 1;
 }
+.account-link{
+    text-decoration: none;
+    color: #8a8a8a;
+}
 

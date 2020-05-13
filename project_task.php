@@ -10,7 +10,7 @@ $tasks = select_task_data($dbh);
 $main_user = select_task_main_id($dbh);
 
 $sub_user = select_task_sub_id($dbh);
-var_dump($sub_user);
+
 
 
 
@@ -23,7 +23,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $deadline = date($_POST['deadline']);
     $today = date("Y-m-d");
     $project_id = $_GET['id'];
-    $main_user_name = $_POST['main_user_name'];
+    $main_user_id = $_POST['main_user_id'];
+    $sub_user_id = $_POST['sub_user_id'];
+    var_dump($main_user_id);
+    var_dump($sub_user_id);
     $sub_user_name = $_POST['sub_user_name'];
     $errs = array();
 
@@ -34,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             var_dump($errs['title']);
         }
     
-        if($main_user_name === $sub_user_name){
+        if($main_user_id === $sub_user_id){
             $errs['main_user'] = '担当者は2名選択してください。';
         }
     
@@ -52,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
         if(empty($errs)){
             $project_id = $_GET['id'];
-            insert_task_data($dbh, $title, $deadline, $main_user_name, $sub_user_name, $project_id);
+            insert_task_data($dbh, $title, $deadline, $main_user_id, $sub_user_id, $project_id);
             $errs['run'] = 'タスクを追加しました';
            
         }
@@ -60,7 +63,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if(isset($_POST['delete'])){
         $id = $_POST['id'];
-        var_dump($id);
         delete_task_data($dbh, $id);
         $errs['run'] = 'タスクを削除しました。';
     }

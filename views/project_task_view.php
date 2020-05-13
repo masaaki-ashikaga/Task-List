@@ -34,6 +34,7 @@
                   foreach($main_user as $main_user_name => $main_name):
                   foreach($sub_user as $sub_user_name => $sub_name):
                   if($task['id'] === $main_name['id'] & $task['id'] === $sub_name['id']):
+
                    ?>
 
                 <div class="task-list">
@@ -41,7 +42,15 @@
                         <p class="task-name"><?php echo $task['title'] ?></p>
                         <p class="task-deadline">期限：<?php echo $task['deadline']; ?></p>
                     </div>
-                    <p class="task-member"><?php echo $main_name['name'].'|'.$sub_name['name']; ?></p>
+                    <p class="task-member">
+                        <a href="<?php echo SITE_URL.'account.php?id='.$main_name['main_user_id'].'&name='.$main_name['name'].'&comment='.$main_name['comment'] ;?>" class="account-link">
+                            <?php echo $main_name['name'] ?>
+                        </a>
+                        ｜
+                        <a href="<?php echo SITE_URL.'account.php?id='.$sub_name['main_user_id'].'&name='.$sub_name['name'].'&comment='.$sub_name['comment'] ;?>" class="account-link">
+                            <?php echo $sub_name['name']; ?>
+                        </a>
+                    </p>
                     <label class="task-checkbox">
                         <input type="checkbox" name="done_flag" class="task-complete" value="1">
                         <input type="hidden" name="done_flag" class="task-complete" value="0">
@@ -76,7 +85,7 @@
                                       foreach($data as $key):
                                       foreach($key as $value):
                                 ?>
-                                        <option value="<?php echo $value['name']; ?>"><?php echo $value['name'] ?></option>
+                                        <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
                                 <?php endforeach;
                                       endforeach;
                                       endif;
@@ -93,7 +102,7 @@
                                       foreach($data as $key):
                                       foreach($key as $value):
                                 ?>
-                                        <option value="<?php echo $value['name']; ?>"><?php echo $value['name'] ?></option>
+                                        <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
                                 <?php endforeach;
                                       endforeach;
                                       endif;

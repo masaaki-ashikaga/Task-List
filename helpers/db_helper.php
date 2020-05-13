@@ -63,6 +63,7 @@
         $stmt->execute();
     }
 
+    //dashboardで使用
     function update_user_data($dbh, $id, $name, $mail, $comment){
         try{
             $sql = "UPDATE users SET name = :name, mail = :mail, comment = :comment WHERE id = :id";
@@ -127,7 +128,6 @@
             }
     }
 
-
     //titleとdeadlineとPJ_idはtasks tableから取得する。
     function select_task_data($dbh){
         $sql = "SELECT id, title, deadline, done_flag FROM tasks";
@@ -160,19 +160,6 @@
         return $data;
     }
 
-
-    // function select_task_data($dbh){
-    //     $sql = "SELECT tasks.id, tasks.title, tasks.deadline, tasks.main_user_name, tasks.sub_user_name, main.id, sub.id FROM tasks
-    //             LEFT JOIN users AS main ON tasks.main_user_name = main.id
-    //             LEFT JOIN users AS sub ON tasks.sub_user_name = sub.id";
-    //     $stmt = $dbh->prepare($sql);
-    //     $stmt->execute();
-    //     while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
-    //         $tasks[] = $row;
-    //     }
-    //     return $tasks;
-    // }
-
     function delete_task_data($dbh, $id){
         $sql = "DELETE FROM tasks WHERE id = :id";
         $stmt = $dbh->prepare($sql);
@@ -180,7 +167,23 @@
         $stmt->execute($params);
     }
     
+    //dashboard画面でuserが所属しているPJを全て表示する。
+    // function select_dashboard_project($dbh){
+    //     $sql = "SELECT pj_name FROM projects RIGHT JOIN users ON projects.id = users.id";
+    // }
 
+
+    //account画面の関数
+    function account_task_data($dbh){
+        $account_id = $_GET['id'];
+        $sql = "SELECT title, deadline, main_user_id, sub_user_id, project_id FROM tasks WHERE main_user_id = '{$account_id}'";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data = $row;
+        }
+        return $data;
+    }
 
 
 
