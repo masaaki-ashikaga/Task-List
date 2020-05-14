@@ -8,15 +8,18 @@ $data = select_users_data($dbh);
 $tasks = select_task_data($dbh);
 
 $main_user = select_task_main_id($dbh);
-
 $sub_user = select_task_sub_id($dbh);
-
-
-
 
 $get_id = $_GET['id'];
 $get_pj_name = $_GET['pj_name'];
 $get_pj_explain = $_GET['pj_explain'];
+
+session_start();
+if(empty($_SESSION['pj_member'])){
+    $_SESSION['pj_member'] = 'ログイン後プロジェクトメンバーに登録';
+    var_dump($_SESSION);
+    //header('Location:' . SITE_URL . 'index.php');
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $title = get_trim_post('title');
@@ -29,7 +32,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     var_dump($sub_user_id);
     $sub_user_name = $_POST['sub_user_name'];
     $errs = array();
-
 
     if(isset($_POST['task'])){
         if(mb_strlen($title) === 0 | mb_strlen($title) > 100){
@@ -57,7 +59,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $project_id = $_GET['id'];
             insert_task_data($dbh, $title, $deadline, $main_user_id, $sub_user_id, $project_id);
             $errs['run'] = 'タスクを追加しました';
-           
         }
     }
 

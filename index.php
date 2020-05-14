@@ -10,6 +10,7 @@ if(function_exists('insert_register')){
 }
 
 session_start();
+var_dump($_SESSION['pj_member']);
 if(!empty($_SESSION['member'])){
     header('Location:' . SITE_URL .'dashboard.php');
     exit();
