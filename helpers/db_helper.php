@@ -168,19 +168,24 @@
     }
     
     //dashboard画面でuserが所属しているPJを全て表示する。
-    // function select_dashboard_project($dbh){
-    //     $sql = "SELECT pj_name FROM projects RIGHT JOIN users ON projects.id = users.id";
-    // }
-
 
     //account画面の関数
-    function account_task_data($dbh){
-        $account_id = $_GET['id'];
-        $sql = "SELECT title, deadline, main_user_id, sub_user_id, project_id FROM tasks WHERE main_user_id = '{$account_id}'";
+    //tasksから全て取得
+    // function select_task_all($dbh){
+    //     $sql = "SELECT * FROM tasks";
+    //     $stmt = $dbh->prepare($sql);
+    //     $stmt->execute();
+    //     while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+    //         $data = $row;
+    //     }
+    //     return $data;
+    // }
+    function select_task_all($dbh){
+        $sql = "SELECT id, title, deadline, done_flag, main_user_id, sub_user_id FROM tasks";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
         while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
-            $data = $row;
+            $data[] = $row;
         }
         return $data;
     }

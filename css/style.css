@@ -203,7 +203,11 @@ select{
       text-align: center;
       margin-bottom: 100px;
   }
-
+  .page-task-link{
+      text-align: center;
+      margin-top: 100px;
+      margin-bottom: 100px;
+  }
 
 input[type = checkbox]{
     display: none;
