@@ -31,6 +31,7 @@
             <?php if(isset($tasks)):
                   foreach($tasks as $key => $value):
                   foreach($value as $task):
+                  if($task['project_id'] === $_GET['id']):
                   foreach($main_user as $main_user_name => $main_name):
                   foreach($sub_user as $sub_user_name => $sub_name):
                   if($task['id'] === $main_name['id'] & $task['id'] === $sub_name['id']):
@@ -65,6 +66,7 @@
             <?php endif;
                   endforeach;
                   endforeach;
+                  endif;
                   endforeach;
                   endforeach;
                   endif; ?>

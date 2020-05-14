@@ -130,7 +130,7 @@
 
     //titleとdeadlineとPJ_idはtasks tableから取得する。
     function select_task_data($dbh){
-        $sql = "SELECT id, title, deadline, done_flag FROM tasks";
+        $sql = "SELECT id, title, deadline, done_flag, project_id FROM tasks";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
         while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){

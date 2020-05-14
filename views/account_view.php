@@ -47,6 +47,7 @@
                   endif; ?>
 
         <p class="page-task-link">
+        <a href="<?php echo SITE_URL.'project_task.php?id='.$value['id'].'&pj_name='.$value['pj_name'].'&pj_explain='.$value['pj_explain'] ;?>" class="pj-task-link">
             <a href="./project_task.php" class="pj_task-link">プロジェクトタスクに戻る</a>
         </p>
     </main>
