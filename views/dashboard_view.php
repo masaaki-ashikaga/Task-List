@@ -27,10 +27,10 @@
                   foreach($data as $key):
                   foreach($key as $value):
             ?>
-                
+                <!-- ここでuser_idとpj_idが紐づいてたら権限あり。紐づいてなければ権限なし。の条件分岐 -->
             <div class="project-list">
                 <p class="project-name"><?php echo $value['pj_name'] ?></p>
-                <p class="project-link"><a href="<?php echo SITE_URL.'project_task.php?id='.$value['id'].'&pj_name='.$value['pj_name'].'&pj_explain='.$value['pj_explain'] ;?>" class="project-link">タスクへ</a></p>
+                <p class="project-link"><a href="<?php echo SITE_URL.'project_task.php?id='.$value['id'].'&pj_name='.$value['pj_name'].'&pj_explain='.$value['pj_explain'].'&user_id='.$id ;?>" class="project-link">タスクへ</a></p>
             </div>
             <?php endforeach;
                   endforeach;

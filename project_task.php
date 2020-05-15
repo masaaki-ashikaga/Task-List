@@ -7,6 +7,10 @@ $dbh = get_db_connect();
 $data = select_users_data($dbh);
 $tasks = select_task_data($dbh);
 
+$id = $_GET['user_id'];
+$pj_id = $_GET['id'];
+// $members = match_member_data($dbh, $id);
+
 $main_user = select_task_main_id($dbh);
 $sub_user = select_task_sub_id($dbh);
 
@@ -14,12 +18,7 @@ $get_id = $_GET['id'];
 $get_pj_name = $_GET['pj_name'];
 $get_pj_explain = $_GET['pj_explain'];
 
-session_start();
-if(empty($_SESSION['pj_member'])){
-    $_SESSION['pj_member'] = 'ログイン後プロジェクトメンバーに登録';
-    var_dump($_SESSION);
-    //header('Location:' . SITE_URL . 'index.php');
-}
+var_dump($members);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $title = get_trim_post('title');

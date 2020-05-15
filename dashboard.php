@@ -12,6 +12,8 @@ $user_comment = $data['comment'];
 $dbh = get_db_connect();
 $errs = array();
 
+var_dump($id);
+var_dump($user_name);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
@@ -70,35 +72,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
 $data = select_project_data($dbh);
-
-
-// if($_SERVER['REQUEST_METHOD'] === 'GET'){
-
-//     $dbh = get_db_connect();
-//     $errs = array();
-
-//     $pj_name = trim($_GET['pj_name']);
-//     $pj_explain = trim($_GET['pj_explain']);
-
-//     if(isset($_GET['project'])){
-//         if(mb_strlen($pj_name) === 0 | mb_strlen($pj_name) > 100){
-//             $errs['pj_name'] = 'プロジェクト名は必須、100文字以内です。';
-//         }
-    
-//         if(mb_strlen($pj_explain) === 0 | mb_strlen($pj_explain) > 100){
-//             $errs['pj_explain'] = '説明は必須、100文字以内です。';
-//         }
-    
-//         if(!empty($errs)){
-//             $errs['post'] = 'プロジェクトの作成に失敗しました';
-//         }
-    
-//         if(empty($errs)){
-//             insert_pj_data($dbh, $pj_name, $pj_explain);
-//             header('Location:' . SITE_URL . 'project_task.php/?pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain']);
-//         }
-//     }
-// }
 
 include_once('./views/dashboard_view.php');
 
