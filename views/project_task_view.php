@@ -19,6 +19,9 @@
             <?php if(!empty($errs['run'])){
                 echo "<p class='run-info' style='color: #8a8a8a; font-size: 13px'>" . $errs['run'] . "</p>";
             } ?>
+            <?php if(!empty($_SESSON['errs'])){
+                echo "<p class='run-info' style='color: #8a8a8a; font-size: 13px'>" . $_SESSON['errs'] . "</p>";
+            } ?>
         </div>
         <p class="form-title"><?php echo $get_pj_name; ?></p>
 
@@ -35,6 +38,7 @@
                   foreach($main_user as $main_user_name => $main_name):
                   foreach($sub_user as $sub_user_name => $sub_name):
                   if($task['id'] === $main_name['id'] & $task['id'] === $sub_name['id']):
+                    var_dump($task['done_flag']);
 
                    ?>
 
@@ -44,17 +48,16 @@
                         <p class="task-deadline">期限：<?php echo $task['deadline']; ?></p>
                     </div>
                     <p class="task-member">
-                        <a href="<?php echo SITE_URL.'account.php?id='.$main_name['main_user_id'].'&name='.$main_name['name'].'&comment='.$main_name['comment'] ;?>" class="account-link">
+                        <a href="<?php echo SITE_URL.'account.php?id='.$main_name['main_user_id'].'&name='.$main_name['name'].'&comment='.$main_name['comment']. '&pj_id='.$get_id. '&pj_name='.$get_pj_name. '&pj_expalin='.$get_pj_explain ;?>" class="account-link">
                             <?php echo $main_name['name'] ?>
                         </a>
                         ｜
-                        <a href="<?php echo SITE_URL.'account.php?id='.$sub_name['main_user_id'].'&name='.$sub_name['name'].'&comment='.$sub_name['comment'] ;?>" class="account-link">
+                        <a href="<?php echo SITE_URL.'account.php?id='.$main_name['main_user_id'].'&name='.$main_name['name'].'&comment='.$main_name['comment']. '&pj_id='.$get_id. '&pj_name='.$get_pj_name. '&pj_expalin='.$get_pj_explain ;?>" class="account-link">
                             <?php echo $sub_name['name']; ?>
                         </a>
                     </p>
                     <label class="task-checkbox">
-                        <input type="checkbox" name="done_flag" class="task-complete" value="1">
-                        <input type="hidden" name="done_flag" class="task-complete" value="0">
+                        <input type="checkbox" name="done_flag" class="task-complete" <?= $task['done_flag'] == 1 ? 'checked' : '' ?>>
                         <span class="checkbox">
                     </label>
                 </div>
@@ -77,14 +80,14 @@
         <div class="task-add">
             <p class="form-title">タスクを追加</p>
             <div class="account-info">
-                <form class="account-info-form" action="<?php echo 'project_task.php?pj_id=' . $_GET['id'] . '&pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain'] ?>" method="POST">
+                <form class="account-info-form" action="<?php echo 'project_task.php?pj_id=' . $_GET['id'] . '&pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain'] . '$user_id=' . $_GET['user_id'] ?>" method="POST">
                     <div class="select-member">
                         <p><label for="name">担当者①</label></p>
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['main_user'])){ echo $errs['main_user']; } ?></p>
                         <p class="member-select">
                             <select name="main_user_id">
-                                <?php if(!empty($data)):
-                                      foreach($data as $key):
+                                <?php if(!empty($select_member_name)):
+                                      foreach($select_member_name as $key):
                                       foreach($key as $value):
                                 ?>
                                         <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>
@@ -100,8 +103,8 @@
                         <p style='color: red; font-size: 13px'><?php if(!empty($errs['name'])){ echo $errs['name']; } ?></p>
                         <p class="member-select">
                             <select name="sub_user_id">
-                                <?php if(!empty($data)):
-                                      foreach($data as $key):
+                                <?php if(!empty($select_member_name)):
+                                      foreach($select_member_name as $key):
                                       foreach($key as $value):
                                 ?>
                                         <option value="<?php echo $value['id']; ?>"><?php echo $value['name'] ?></option>

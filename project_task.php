@@ -7,20 +7,32 @@ $dbh = get_db_connect();
 $data = select_users_data($dbh);
 $tasks = select_task_data($dbh);
 
+
 $id = $_GET['user_id'];
 $pj_id = $_GET['id'];
+$members = members_data($dbh, $pj_id);
+
+foreach($members as $key){
+    foreach($key as $value){
+        $select_member_id[] = $value['user_id'];
+    }
+}
+
+foreach($select_member_id as $user_id){
+    $select_member_name[] = select_user_name($dbh, $user_id);
+}
 
 //URLを知っていて直接入力した場合（user_idのみNULLの場合）Member Talbeへ登録できる画面に飛ぶ。**ログイン画面と同じレイアウト
+session_start();
 if(!empty($pj_id) & $id === NULL){
-    session_start();
     $_SESSION['pass_bill'] = $pj_id;
     header('Location:' .SITE_URL. 'invitation.php');
 }
 
-//セッションなければ
-// if(!empty($id) & !empty($pj_id) & !empty($_SESSION['pass_bill'])){
-     //header('Location:' .SITE_URL. 'dashboard.php');
-// }
+if(empty($_SESSION['data'])){
+    header('Location:' .SITE_URL. 'index.php');
+}
+
 
 if(!empty($id) & !empty($pj_id)){  //ID入っていればMembers Tableからデータ取得する。
     $members_data = match_member_data($dbh);
@@ -44,8 +56,6 @@ $get_id = $_GET['id'];
 $get_pj_name = $_GET['pj_name'];
 $get_pj_explain = $_GET['pj_explain'];
 
-
-
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $title = get_trim_post('title');
     $deadline = date($_POST['deadline']);
@@ -53,15 +63,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $project_id = $_GET['id'];
     $main_user_id = $_POST['main_user_id'];
     $sub_user_id = $_POST['sub_user_id'];
-    var_dump($main_user_id);
-    var_dump($sub_user_id);
     $sub_user_name = $_POST['sub_user_name'];
     $errs = array();
 
     if(isset($_POST['task'])){
         if(mb_strlen($title) === 0 | mb_strlen($title) > 100){
             $errs['title'] = 'タイトルは必須、100文字以内です。';
-            var_dump($errs['title']);
         }
     
         if($main_user_id === $sub_user_id){
@@ -70,14 +77,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
         if(empty($deadline)){
             $errs['deadline'] = '期限を入力してください。';
-            var_dump($errs['deadline']);
         } elseif(strtotime($today) > strtotime($deadline)){
             $errs['deadline'] = '期限の日付が過去の日付です。';
-            var_dump($errs['deadline']);
         }
     
         if(!empty($errs)){
             $errs['post'] = 'タスクの追加に失敗しました';
+            $_SESSION['errs'] = $errs['post'];
+            header('Location:' .SITE_URL. 'project_task.php?pj_id=' . $_GET['id'] . '&pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain'] . '$user_id=' . $_GET['user_id']);
+            exit;
         }
     
         if(empty($errs)){
@@ -92,8 +100,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         delete_task_data($dbh, $id);
         $errs['run'] = 'タスクを削除しました。';
     }
+
 }
 
-include_once('./views/project_task_view.php');
+include('./views/project_task_view.php');
 
 ?>

@@ -168,7 +168,7 @@
     }
     
     function select_task_all($dbh){
-        $sql = "SELECT id, title, deadline, done_flag, main_user_id, sub_user_id FROM tasks";
+        $sql = "SELECT id, title, deadline, done_flag, main_user_id, sub_user_id, project_id FROM tasks";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
         while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
@@ -213,6 +213,28 @@
         $stmt->execute();
         while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
             $data[] = $row;
+        }
+        return $data;
+    }
+
+    function members_data($dbh, $pj_id){
+        $sql = "SELECT * FROM members WHERE project_id = :project_id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':project_id', $pj_id, PDO::PARAM_INT);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data[] = $row;
+        }
+        return $data;
+    }
+
+    function select_user_name($dbh, $user_id){
+        $sql = "SELECT id, name FROM users WHERE id = :user_id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data = $row;
         }
         return $data;
     }
