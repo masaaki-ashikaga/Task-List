@@ -177,18 +177,15 @@
         return $data;
     }
 
-    // function match_member_data($dbh, $id){
-    //     $sql = "SELECT user_id, project_id FROM members WHERE user_id = :id";
-    //     $stmt = $dbh->prepare($sql);
-    //     $stmt->bindValue(':user_id', $id, PDO::FETCH_ASSOC);
-    //     $stmt->execute();
-    //     if($stmt->rowCount() > 0){
-    //         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-    //     } else{
-    //         var_dump('user_id, pj_idとマッチするデータがありません。');
-    //     }
-    //     return $data;
-    // }
+    function match_member_data($dbh){
+        $sql = "SELECT user_id, project_id FROM members";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $member_data[] = $row;
+        }
+        return $member_data;
+    }
 
 
 
