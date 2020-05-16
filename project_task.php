@@ -14,7 +14,7 @@ $pj_id = $_GET['id'];
 if(!empty($pj_id) & $id === NULL){
     session_start();
     $_SESSION['pass_bill'] = $pj_id;
-    header('Location:' .SITE_URL. 'register_member.php');
+    header('Location:' .SITE_URL. 'invitation.php');
 }
 
 //セッションなければ

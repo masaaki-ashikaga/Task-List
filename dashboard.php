@@ -11,9 +11,15 @@ $user_mail = $data['mail'];
 $user_comment = $data['comment'];
 $dbh = get_db_connect();
 $errs = array();
-
-var_dump($id);
-var_dump($user_name);
+$projects_id = select_member_project($dbh, $id);
+//var_dump($projects_id);
+foreach($projects_id as $key){
+    foreach($key as $project_id){
+        $project_id = $project_id['project_id'];
+        //var_dump($project_id);
+        $projects[] = select_project_content($dbh, $project_id);
+    }
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     

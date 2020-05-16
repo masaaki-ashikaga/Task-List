@@ -187,6 +187,35 @@
         return $member_data;
     }
 
+    function invitation_member($dbh, $user_id, $project_id){
+        $sql = "INSERT INTO members(user_id, project_id) VALUE(:user_id, :project_id)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+        $stmt->bindValue(':project_id', $project_id, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    function select_member_project($dbh, $id){
+        $sql = "SELECT project_id FROM members WHERE user_id = :user_id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data[] = $row;
+        }
+        return $data;
+    }
+
+    function select_project_content($dbh, $project_id){
+        $sql = "SELECT * FROM projects WHERE id = :id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':id', $project_id, PDO::PARAM_INT);
+        $stmt->execute();
+        while($row = $stmt->fetchALL(PDO::FETCH_ASSOC)){
+            $data[] = $row;
+        }
+        return $data;
+    }
 
 
 ?>
