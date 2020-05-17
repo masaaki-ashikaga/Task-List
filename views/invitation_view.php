@@ -13,6 +13,7 @@
     <main>
         <h1 class="page-title">タスク共有アプリ</h1>
         <p class="form-title">ログインフォーム</p>
+        <p class="form-title">ログイン後プロジェクトへのアクセス権限が付与されます。</p>
         <div class="login-form">
             <form action="invitation.php" method="POST">
                 <p><label for="mail">mail</label></p>
