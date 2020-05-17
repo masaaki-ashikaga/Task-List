@@ -239,5 +239,13 @@
         return $data;
     }
 
+    function update_task($dbh, $id, $done_flag){
+        $sql = "UPDATE tasks SET done_flag = :done_flag WHERE id = :id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':done_flag', $done_flag, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 
 ?>

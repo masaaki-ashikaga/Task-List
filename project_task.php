@@ -1,7 +1,7 @@
 <?php
-require_once('config.php');
-require_once('./helpers/db_helper.php');
-require_once('./helpers/common_helper.php');
+require('config.php');
+require('./helpers/db_helper.php');
+require('./helpers/common_helper.php');
 
 $dbh = get_db_connect();
 $data = select_users_data($dbh);
@@ -12,15 +12,15 @@ $id = $_GET['user_id'];
 $pj_id = $_GET['id'];
 $members = members_data($dbh, $pj_id);
 
-foreach($members as $key){
-    foreach($key as $value){
-        $select_member_id[] = $value['user_id'];
-    }
-}
+// foreach($members as $key){
+//     foreach($key as $value){
+//         $select_member_id[] = $value['user_id'];
+//     }
+// }
 
-foreach($select_member_id as $user_id){
-    $select_member_name[] = select_user_name($dbh, $user_id);
-}
+// foreach($select_member_id as $user_id){
+//     $select_member_name[] = select_user_name($dbh, $user_id);
+// }
 
 //URLを知っていて直接入力した場合（user_idのみNULLの場合）Member Talbeへ登録できる画面に飛ぶ。**ログイン画面と同じレイアウト
 session_start();
@@ -84,8 +84,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(!empty($errs)){
             $errs['post'] = 'タスクの追加に失敗しました';
             $_SESSION['errs'] = $errs['post'];
-            header('Location:' .SITE_URL. 'project_task.php?pj_id=' . $_GET['id'] . '&pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain'] . '$user_id=' . $_GET['user_id']);
-            exit;
+            //header('Location:' .SITE_URL. 'project_task.php?pj_id=' . $_GET['id'] . '&pj_name=' . $_GET['pj_name'] . '&pj_explain=' . $_GET['pj_explain'] . '$user_id=' . $_GET['user_id']);
         }
     
         if(empty($errs)){
@@ -101,6 +100,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errs['run'] = 'タスクを削除しました。';
     }
 
+    if(isset($_POST['update'])){
+        $id = $_POST['id'];
+        $done_flag = $_POST['done_flag'];
+        if($done_flag === NULL){
+            $done_flag = 0;
+        }
+        var_dump($id);
+        var_dump($done_flag);
+        update_task($dbh, $id, $done_flag);
+    }
 }
 
 include('./views/project_task_view.php');

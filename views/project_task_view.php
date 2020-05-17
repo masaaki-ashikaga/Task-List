@@ -38,7 +38,6 @@
                   foreach($main_user as $main_user_name => $main_name):
                   foreach($sub_user as $sub_user_name => $sub_name):
                   if($task['id'] === $main_name['id'] & $task['id'] === $sub_name['id']):
-                    var_dump($task['done_flag']);
 
                    ?>
 
@@ -56,15 +55,20 @@
                             <?php echo $sub_name['name']; ?>
                         </a>
                     </p>
+                <form action="./project_task.php" method="POST">
                     <label class="task-checkbox">
-                        <input type="checkbox" name="done_flag" class="task-complete" <?= $task['done_flag'] == 1 ? 'checked' : '' ?>>
+                        <input type="checkbox" name="done_flag" class="task-complete"  value="1"<?= $task['done_flag'] == 1 ? 'checked' : '' ?>>
                         <span class="checkbox">
                     </label>
                 </div>
-                <form action="./project_task.php" method="POST">
                     <p><input type="hidden" name="eventid" value="delete"></p>
                     <p><input type="hidden" name="id" value="<?php echo $task['id'] ?>"></p>
-                    <div class="delete-btn"><p class="task-delete"><input type="submit" class="task-delete" name="delete" value="削除"></p></div>
+                    <div class="update-btn">
+                        <p class="task-update">
+                            <input type="submit" class="task-update" name="update" value="更新">
+                            <input type="submit" class="task-delete" name="delete" value="削除">
+                        </p>
+                    </div>
                 </form>
             <?php endif;
                   endforeach;

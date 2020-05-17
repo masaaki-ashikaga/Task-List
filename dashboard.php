@@ -14,13 +14,12 @@ $user_mail = $data['mail'];
 $user_comment = $data['comment'];
 $dbh = get_db_connect();
 $errs = array();
-$projects_id = select_member_project($dbh, $id);
-
-foreach($projects_id as $key){
+$projects_id = select_member_project($dbh, $id); //Member Tableからuser_idに紐付くpj_idを取得
+foreach($projects_id as $key){ //userに紐づくpj_idを展開
     foreach($key as $project_id){
-        $project_id = $project_id['project_id'];
-        $projects[] = select_project_content($dbh, $project_id);
-    }
+        $project_id = $project_id['project_id']; //紐付くpj_idだけの配列に再代入
+        $projects[] = select_project_content($dbh, $project_id); //pj_idに紐付くpj_nameを取得
+    } //これをviewでforeach展開して表示させる
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -79,7 +78,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }
 
-$data = select_project_data($dbh);
+//$data = select_project_data($dbh);
 
 include_once('./views/dashboard_view.php');
 

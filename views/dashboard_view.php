@@ -28,7 +28,7 @@
                   foreach($key as $value):
                   foreach($value as $project):
             ?>
-                <!-- ここでuser_idとpj_idが紐づいてたら権限あり。紐づいてなければ権限なし。の条件分岐 -->
+                
             <div class="project-list">
                 <p class="project-name"><?php echo $project['pj_name'] ?></p>
                 <p class="project-link"><a href="<?php echo SITE_URL.'project_task.php?id='.$project['id'].'&pj_name='.$project['pj_name'].'&pj_explain='.$project['pj_explain'].'&user_id='.$id ;?>" class="project-link">タスクへ</a></p>
